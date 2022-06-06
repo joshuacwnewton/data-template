@@ -29,9 +29,17 @@ setup(
   # with setuptools_scm, means it includes non-python files if they're under git
   include_package_data=True,
 
+  # with setuptools_scm, get the version out of the most recent git tag.
+  # the tags must be formatted as semver.
+  # Note: For `setuptools_scm` to work as expected, the checked-out commit has to have a tag at build time.
+  #       If you try to build the package on an untagged commit, a `.dev` version number will be auto-generated.
+  #       For more info, see: https://github.com/pypa/setuptools_scm#default-versioning-scheme
+  use_scm_version=True,
+
   # pyproject.toml::build-system.requires is supposed to supersede this, but it's still very new so we duplicate it.
   setup_requires=[
     'setuptools',
+    'setuptools_scm[toml]',
     'wheel',
   ],
 
