@@ -49,7 +49,7 @@ Part of [`spinalcordtoolbox`](https://github.com/spinalcordtoolbox).
 5. Remove the "Using this template" section from `README.md`, since it is now no longer needed.
 
     ```bash
-    # Delete the 'Using the Template' section from `README.md
+    # Delete the 'Using the Template' section from `README.md`
     vi README.md
    
     # Add, commit, and push the changes
@@ -63,14 +63,16 @@ Part of [`spinalcordtoolbox`](https://github.com/spinalcordtoolbox).
 
 1. Edit and commit the files in `src/spinalcordtoolbox/data/`
 2. Go to https://github.com/spinalcordtoolbox/data-${dataset_name}/releases
+3. Click "Draft Release"
+4. Fill in a version tag. We recommend using date-based releases (e.g. `2020.1.1`, `2022.5.18`, etc.). 
 
-    1. Click "Draft Release"
-    2. Fill in a version tag. We use date-based release names (e.g. `r20200101`, `r20220518`, etc.)
-    3. Click "Publish Release"
-    4. Wait a few minutes;
-    5. Monitor the progress at https://github.com/spinalcordtoolbox/data-${dataset_name}/actions/workflows/release.yml
-    6. The release should appear on https://github.com/spinalcordtoolbox/data-${dataset_name}/releases
-       with the .tar.gz (sdist) and .whl (wheel) formats attached momentarily.
+   **Note**: The version must be formatted in a way that complies with [PEP 440](https://peps.python.org/pep-0440/). The easiest way to do this is to use a numerical version number in the form of X.Y.Z, but there is [some flexibility](https://peps.python.org/pep-0440/#final-releases) here.
+
+5. Click "Publish Release"
+6. Wait a few minutes;
+7. Monitor the progress at https://github.com/spinalcordtoolbox/data-${dataset_name}/actions/workflows/release.yml
+8. The release should appear on https://github.com/spinalcordtoolbox/data-${dataset_name}/releases
+   with the .tar.gz (sdist) and .whl (wheel) formats attached momentarily.
 
 
 ## How to test this repo locally
