@@ -20,11 +20,7 @@ jobs:
     - uses: actions/checkout@v3
     
     - uses: actions/setup-python@v3
-      
-    - name: Replace dummy values in `setup.py` (only for `data-template`)
-      if: ${{ github.event.repository.name }} == "data-template"
-      run: perl -pi -e 's/\${dataset_name}/template/' setup.py
-      
+           
     - name: Install dependencies
       run: |
           python -m pip install --upgrade pip
