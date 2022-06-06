@@ -12,23 +12,27 @@ env:
 
 jobs:
   publish:
+    name: Publish Package
+    
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ env.VERSION_NUMBER }}
-    - name: Set up Python
-      uses: actions/setup-python@v1
-    - name: Build tools
-      run: |
-          python -m pip install --upgrade pip
-          pip install build
+    - uses: actions/checkout@v3
+    
+    - uses: actions/setup-python@v3
+      
     - name: Replace dummy values in `setup.py` (only for `data-template`)
       if: ${{ github.event.repository.name }} == "data-template"
       run: perl -pi -e 's/\${dataset_name}/template/' setup.py
-    - name: Build
+      
+    - name: Install dependencies
       run: |
-          python -m build --wheel --sdist
+          python -m pip install --upgrade pip
+          pip install build
+
+    - name: Build
+      run: python -m build --wheel --sdist
+
     - name: Publish to Github
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
@@ -36,8 +40,10 @@ jobs:
         files: 'dist/*'
         fail_on_unmatched_files: true
         tag_name: ${{ env.VERSION_NUMBER }}
+        prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags/')
       uses: pypa/gh-action-pypi-publish@release/v1
